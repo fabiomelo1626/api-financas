@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import List
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import func, or_
 
 from conexao.conect_db import get_db
 from endpoints.userEndpoints import get_current_user
@@ -115,11 +116,28 @@ def listar_unidades_ativas_publico(db: Session = Depends(get_db)):
 # 2. Buscar os dados de uma unidade pelo nome_filial (ex: /maceio, /murici)
 @empresa.get("/unidades/public/{nome_filial}")
 def obter_unidade_por_slug(nome_filial: str, db: Session = Depends(get_db)):
-    unid = db.query(UnidadeRecebedora).filter(UnidadeRecebedora.nome_filial == nome_filial.lower(), UnidadeRecebedora.ativo == True).first()
-    if not unid:
-        raise HTTPException(status_code=404, detail="Unidade recebedora não encontrada ou inativa.")
-    return unid
+    termo = nome_filial.strip().lower()
 
+    # Se o model UnidadeRecebedora possui o campo 'slug', busca por slug OU nome_filial
+    filtros = [func.lower(UnidadeRecebedora.nome_filial) == termo]
+    if hasattr(UnidadeRecebedora, "slug"):
+        filtros.append(func.lower(UnidadeRecebedora.slug) == termo)
+
+    unid = (
+        db.query(UnidadeRecebedora)
+        .filter(
+            or_(*filtros),
+            UnidadeRecebedora.ativo == True,
+        )
+        .first()
+    )
+
+    if not unid:
+        raise HTTPException(
+            status_code=404,
+            detail="Unidade recebedora não encontrada ou inativa.",
+        )
+    return unid
 # ------------------------------------------------------------------
 # ROTAS ADMINISTRATIVAS (Painel do Gestor)
 # ------------------------------------------------------------------
