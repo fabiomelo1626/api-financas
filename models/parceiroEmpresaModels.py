@@ -45,7 +45,7 @@ class UnidadeRecebedora(Base):
     __tablename__ = "unidades_recebedoras"
 
     id = Column(Integer, primary_key=True, index=True)
-    slug = Column(String, unique=True, index=True, nullable=False) # Ex: "maceio", "murici", "filial-centro"
+    nome_filial = Column(String, unique=True, index=True, nullable=False) # Ex: "maceio", "murici", "filial-centro"
     nome_exibicao = Column(String, nullable=False)
     razosocial = Column(String, nullable=False)
     cnpj = Column(String, nullable=False)

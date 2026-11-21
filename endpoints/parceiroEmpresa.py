@@ -112,10 +112,10 @@ def listar_unidades_ativas_publico(db: Session = Depends(get_db)):
     unidades = db.query(UnidadeRecebedora).filter(UnidadeRecebedora.ativo == True).all()
     return unidades
 
-# 2. Buscar os dados de uma unidade pelo SLUG (ex: /maceio, /murici)
-@empresa.get("/unidades/public/{slug}")
-def obter_unidade_por_slug(slug: str, db: Session = Depends(get_db)):
-    unid = db.query(UnidadeRecebedora).filter(UnidadeRecebedora.slug == slug.lower(), UnidadeRecebedora.ativo == True).first()
+# 2. Buscar os dados de uma unidade pelo nome_filial (ex: /maceio, /murici)
+@empresa.get("/unidades/public/{nome_filial}")
+def obter_unidade_por_slug(nome_filial: str, db: Session = Depends(get_db)):
+    unid = db.query(UnidadeRecebedora).filter(UnidadeRecebedora.nome_filial == nome_filial.lower(), UnidadeRecebedora.ativo == True).first()
     if not unid:
         raise HTTPException(status_code=404, detail="Unidade recebedora não encontrada ou inativa.")
     return unid

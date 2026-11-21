@@ -56,7 +56,7 @@ class SalvarDadosRecebimentoSchema(BaseModel):
     documento_titular: Optional[str] = None
     
 class UnidadeSchema(BaseModel):
-    slug: str
+    nome_filial: str
     nome_exibicao: str
     razosocial: str
     cnpj: str
