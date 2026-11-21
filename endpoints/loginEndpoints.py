@@ -100,7 +100,7 @@ def solicitar_recuperacao(payload: SolicitarResetRequest, db: Session = Depends(
     token = create_access_token(data={"sub": user.email}, expires_delta=timedelta(minutes=30))
 
     # 3. Monta o link para o SEU frontend Next.js (ajuste para a sua URL/Porta)
-    frontend_url = getattr(Settings, "FRONTEND_URL", "http://localhost:3000")
+    frontend_url = getattr(Settings, "FRONTEND_URL", "http://2.24.79.109:3002")
     link_reset = f"{frontend_url}/redefinir-senha?token={token}"
 
     # 4. Envia o e-mail pegando o username ou fullname direto do registro do banco
