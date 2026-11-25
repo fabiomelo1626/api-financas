@@ -13,7 +13,7 @@ from endpoints.userPermissionEndpoints import permission
 from endpoints.permissionTableEndpoint import table
 from endpoints.parceiroEmpresa import empresa
 from endpoints.entradasEndpoints import entrada
-from endpoints.bannerEndpoints import portal, portal_router
+from endpoints.bannerEndpoints import portal_router
 from seed.popular import popular
 
 
@@ -43,7 +43,6 @@ app.include_router(permission)
 app.include_router(table)
 app.include_router(empresa)
 app.include_router(entrada)
-app.include_router(portal)
 app.include_router(portal_router)
 
 def test_connection():
