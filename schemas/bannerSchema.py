@@ -9,6 +9,7 @@ from pydantic import BaseModel
 class BannerSchema(BaseModel):
     titulo: str
     subtitulo: Optional[str] = None
+    tipo_imagem : str
     imagem_base64: str
     link_destino: Optional[str] = None
     tipo: str = "CARROSSEL" # "CARROSSEL" ou "CARD"

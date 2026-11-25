@@ -13,6 +13,7 @@ class PortalBanner(Base):
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String, nullable=False)
     subtitulo = Column(String, nullable=True)
+    tipo_imagem = Column(String, default="IMAGEM")
     imagem_base64 = Column(String, nullable=False) # Imagem do slide/card
     link_destino = Column(String, nullable=True)  # Ex: "/maceio" ou link externo
     tipo = Column(String, default="CARROSSEL")    # "CARROSSEL" ou "CARD"
