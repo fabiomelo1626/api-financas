@@ -134,9 +134,9 @@ async def upload_destaques_lote(
         ext = os.path.splitext(arquivo.filename or "")[1].lower()
 
         if ext in EXTENSOES_IMAGEM:
-            tipo_midia = "IMAGEM"
+            tipo_imagem = "IMAGEM"
         elif ext in EXTENSOES_VIDEO:
-            tipo_midia = "VIDEO"
+            tipo_imagem = "VIDEO"
         else:
             raise HTTPException(
                 status_code=400,
@@ -145,7 +145,7 @@ async def upload_destaques_lote(
 
         conteudo = await arquivo.read()
 
-        if tipo_midia == "VIDEO" and len(conteudo) > TAMANHO_MAX_VIDEO:
+        if tipo_imagem == "VIDEO" and len(conteudo) > TAMANHO_MAX_VIDEO:
             raise HTTPException(
                 status_code=400,
                 detail=f"O vídeo '{arquivo.filename}' excede o limite de 15 MB.",
@@ -171,7 +171,7 @@ async def upload_destaques_lote(
             titulo=titulo,
             subtitulo=subtitulo,
             imagem_base64=url_publica,
-            tipo_midia=tipo_midia,
+            tipo_imagem=tipo_imagem,
             link_destino=link,
             tipo=tipo,
             ordem=ordem,
