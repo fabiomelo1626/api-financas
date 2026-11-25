@@ -3,6 +3,7 @@ import os
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from conexao.conect_db import Base, engine
+from fastapi.staticfiles import StaticFiles
 
 from endpoints.loginEndpoints import login_user
 from endpoints.userEndpoints import user
@@ -15,7 +16,6 @@ from endpoints.parceiroEmpresa import empresa
 from endpoints.entradasEndpoints import entrada
 from endpoints.bannerEndpoints import portal_router
 from seed.popular import popular
-
 
 app = FastAPI(
     title="AGENDA API",
@@ -33,6 +33,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+BASE_UPLOAD_DIR = os.path.abspath("uploads")
+os.makedirs(os.path.join(BASE_UPLOAD_DIR, "portal"), exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=BASE_UPLOAD_DIR), name="uploads")
 
 app.include_router(user)
 app.include_router(login_user)
