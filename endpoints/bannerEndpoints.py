@@ -70,7 +70,7 @@ from conexao.conect_db import get_db
 from models.bannerModels import PortalBanner
 # importe sua dependência de autenticação (ex: get_current_user)
 
-portal_router = APIRouter()
+portal_router = APIRouter(prefix="/api")
 
 UPLOAD_DIR = "uploads/portal"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
