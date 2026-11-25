@@ -1,3 +1,5 @@
+#NOVAS ROTAS 
+
 import os
 import uuid
 from datetime import date
@@ -5,6 +7,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from conexao.conect_db import get_db
+from endpoints.userEndpoints import get_current_user
 from models.bannerModels import PortalBanner
 # importe sua dependência de autenticação (ex: get_current_user)
 
